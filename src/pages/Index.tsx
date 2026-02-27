@@ -54,7 +54,7 @@ const Index = () => {
           <div className="max-w-3xl">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <span className="inline-flex items-center gap-2 text-cyan text-sm font-semibold tracking-widest uppercase mb-6">
-                <Zap className="w-4 h-4" /> Digital Marketing Agency
+                <Zap className="w-4 h-4" /> East Africa's Growth Engine
               </span>
             </motion.div>
             <motion.h1
@@ -63,8 +63,8 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-on-dark leading-tight mb-6"
             >
-              Turning Clicks Into{" "}
-              <span className="gradient-text">Customers</span>
+              Your Brand Deserves{" "}
+              <span className="gradient-text">Louder Results</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
@@ -72,7 +72,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-on-dark-muted max-w-xl mb-8 leading-relaxed"
             >
-              We help businesses across East Africa scale their digital presence with data-driven marketing strategies that deliver measurable ROI.
+              We craft data-driven campaigns that turn overlooked brands into market leaders. SEO, paid ads, social — all built to deliver ROI you can measure.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -86,7 +86,7 @@ const Index = () => {
                 </Button>
               </Link>
               <Link to="/services">
-                <Button variant="outline" size="lg" className="border-[hsl(var(--navy-light))] text-on-dark hover:bg-[hsl(var(--navy-light)/0.3)] font-semibold text-base px-8">
+                <Button variant="outline" size="lg" className="border-cyan/60 text-cyan hover:bg-cyan hover:text-accent-foreground font-semibold text-base px-8 transition-colors">
                   View Services
                 </Button>
               </Link>
