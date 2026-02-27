@@ -16,7 +16,7 @@ const values = [
 ];
 
 const team = [
-  { name: "Daniel Mwangi", role: "CEO & Founder", img: team1 },
+  { name: "Ken Kaibe", role: "CEO & Founder", img: team1 },
   { name: "Amina Hassan", role: "Head of Strategy", img: team2 },
   { name: "Brian Otieno", role: "Creative Director", img: team3 },
   { name: "Grace Njeri", role: "SEO Lead", img: team2 },
