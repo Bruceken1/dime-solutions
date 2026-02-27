@@ -1,12 +1,252 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Search, Target, Share2, PenTool, Mail, Globe, BarChart3, Video, TrendingUp, Users, Award, Zap } from "lucide-react";
+import SectionHeading from "@/components/SectionHeading";
+import heroBg from "@/assets/hero-bg.jpg";
+import portfolio1 from "@/assets/portfolio-1.jpg";
+import portfolio2 from "@/assets/portfolio-2.jpg";
+import portfolio3 from "@/assets/portfolio-3.jpg";
+import team1 from "@/assets/team-1.jpg";
+import team2 from "@/assets/team-2.jpg";
+import team3 from "@/assets/team-3.jpg";
+
+const services = [
+  { icon: Search, title: "SEO", desc: "Dominate search results and drive organic traffic that converts." },
+  { icon: Target, title: "Google Ads & PPC", desc: "High-performance paid campaigns with measurable ROI." },
+  { icon: Share2, title: "Social Media", desc: "Build engaged communities across all platforms." },
+  { icon: PenTool, title: "Content Marketing", desc: "Compelling content that educates, engages, and converts." },
+  { icon: Mail, title: "Email Marketing", desc: "Automated email flows that nurture leads into customers." },
+  { icon: Globe, title: "Web Design & Dev", desc: "Stunning, high-converting websites and landing pages." },
+  { icon: BarChart3, title: "Analytics & CRO", desc: "Data-driven optimization to maximize your conversions." },
+  { icon: Video, title: "Video & YouTube", desc: "Professional video content that tells your brand story." },
+];
+
+const stats = [
+  { value: "200+", label: "Clients Served" },
+  { value: "500%", label: "Average ROI" },
+  { value: "10M+", label: "Leads Generated" },
+  { value: "50+", label: "Team Members" },
+];
+
+const portfolioItems = [
+  { img: portfolio1, title: "TechHub Africa", category: "Web Design", result: "+340% Traffic" },
+  { img: portfolio2, title: "Fashion Forward", category: "E-Commerce", result: "+280% Sales" },
+  { img: portfolio3, title: "FinTech Kenya", category: "PPC Campaign", result: "12x ROAS" },
+];
+
+const testimonials = [
+  { name: "Sarah Wanjiku", role: "CEO, TechHub Africa", text: "Dime Solutions transformed our online presence completely. Our organic traffic grew by 340% in just 6 months. They truly understand the East African market.", img: team2 },
+  { name: "James Ochieng", role: "Founder, ShopLocal", text: "The ROI we've seen from their PPC campaigns is incredible. Every shilling invested has returned tenfold. Best marketing investment we've made.", img: team1 },
+  { name: "David Kimani", role: "CTO, PayEasy", text: "Their technical SEO expertise is unmatched. They fixed issues other agencies couldn't even identify. Highly recommend for any serious business.", img: team3 },
+];
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="overflow-hidden">
+      {/* Hero */}
+      <section className="relative min-h-screen flex items-center hero-gradient">
+        <div className="absolute inset-0 z-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(213,80%,5%)] via-transparent to-[hsl(213,80%,5%)]" />
+        </div>
+        <div className="container-wide relative z-10 px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+          <div className="max-w-3xl">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <span className="inline-flex items-center gap-2 text-cyan text-sm font-semibold tracking-widest uppercase mb-6">
+                <Zap className="w-4 h-4" /> Digital Marketing Agency
+              </span>
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-on-dark leading-tight mb-6"
+            >
+              Turning Clicks Into{" "}
+              <span className="gradient-text">Customers</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg md:text-xl text-on-dark-muted max-w-xl mb-8 leading-relaxed"
+            >
+              We help businesses across East Africa scale their digital presence with data-driven marketing strategies that deliver measurable ROI.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-wrap gap-4"
+            >
+              <Link to="/free-audit">
+                <Button size="lg" className="gradient-cyan text-accent-foreground font-semibold text-base px-8 hover:opacity-90 glow-cyan">
+                  Get Free Audit <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+              <Link to="/services">
+                <Button variant="outline" size="lg" className="border-[hsl(var(--navy-light))] text-on-dark hover:bg-[hsl(var(--navy-light)/0.3)] font-semibold text-base px-8">
+                  View Services
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Client Logos */}
+      <section className="section-dark py-12 border-y border-[hsl(var(--navy-light)/0.2)]">
+        <div className="container-wide px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-on-dark-muted text-sm mb-6 tracking-widest uppercase">Trusted by Leading Brands</p>
+          <div className="flex justify-center items-center gap-8 md:gap-16 flex-wrap opacity-50">
+            {["Safaricom", "KCB Bank", "Jumia", "Twiga Foods", "M-Pesa", "NCBA"].map((brand) => (
+              <span key={brand} className="font-heading font-bold text-on-dark text-lg md:text-xl">{brand}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Grid */}
+      <section className="section-dark section-padding">
+        <div className="container-wide">
+          <SectionHeading label="What We Do" title="Services That Drive Growth" description="End-to-end digital marketing solutions tailored for the East African market." light />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service, i) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+              >
+                <Link to="/services" className="block p-6 rounded-2xl bg-[hsl(var(--navy)/0.5)] border border-[hsl(var(--navy-light)/0.3)] card-hover group">
+                  <div className="w-12 h-12 rounded-xl gradient-cyan flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <service.icon className="w-6 h-6 text-accent-foreground" />
+                  </div>
+                  <h3 className="font-heading font-semibold text-on-dark mb-2">{service.title}</h3>
+                  <p className="text-sm text-on-dark-muted leading-relaxed">{service.desc}</p>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="section-navy section-padding">
+        <div className="container-wide">
+          <SectionHeading label="Results That Matter" title="Why Choose Dime Solutions?" description="We don't just promise results — we deliver them. Here's our track record." light />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-4xl md:text-5xl font-heading font-black gradient-text mb-2">{stat.value}</div>
+                <p className="text-on-dark-muted text-sm">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio */}
+      <section className="section-dark section-padding">
+        <div className="container-wide">
+          <SectionHeading label="Our Work" title="Featured Projects" description="Real results for real businesses. See how we've helped brands grow." light />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {portfolioItems.map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+              >
+                <Link to="/portfolio" className="group block rounded-2xl overflow-hidden card-hover">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,80%,5%)] to-transparent opacity-80" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <span className="text-cyan text-xs font-semibold uppercase tracking-wider">{item.category}</span>
+                      <h3 className="font-heading font-bold text-on-dark text-lg">{item.title}</h3>
+                      <span className="text-sm text-cyan font-semibold">{item.result}</span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link to="/portfolio">
+              <Button variant="outline" className="border-cyan text-cyan hover:bg-cyan hover:text-accent-foreground">
+                View All Projects <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="section-navy section-padding">
+        <div className="container-wide">
+          <SectionHeading label="Client Love" title="What Our Clients Say" light />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="p-6 rounded-2xl bg-[hsl(var(--navy)/0.5)] border border-[hsl(var(--navy-light)/0.3)]"
+              >
+                <p className="text-on-dark-muted text-sm leading-relaxed mb-6">"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <img src={t.img} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <div>
+                    <p className="font-heading font-semibold text-sm text-on-dark">{t.name}</p>
+                    <p className="text-xs text-on-dark-muted">{t.role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative section-padding overflow-hidden">
+        <div className="absolute inset-0 hero-gradient" />
+        <div className="absolute inset-0 z-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-15" />
+        </div>
+        <div className="container-wide relative z-10 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl md:text-5xl font-bold text-on-dark mb-4">Ready to Scale Your Business?</h2>
+            <p className="text-on-dark-muted text-lg max-w-xl mx-auto mb-8">
+              Get a free marketing audit and discover opportunities to 10x your growth.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link to="/free-audit">
+                <Button size="lg" className="gradient-cyan text-accent-foreground font-semibold px-8 glow-cyan">
+                  Get Free Audit <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button variant="outline" size="lg" className="border-[hsl(var(--navy-light))] text-on-dark hover:bg-[hsl(var(--navy-light)/0.3)] font-semibold px-8">
+                  Contact Us
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 };
