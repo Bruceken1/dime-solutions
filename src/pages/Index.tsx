@@ -63,8 +63,8 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-on-dark leading-tight mb-6"
             >
-              Your Brand Deserves{" "}
-              <span className="gradient-text">Louder Results</span>
+              Unlock Explosive Growth with{" "}
+              <span className="gradient-text">Data-Driven Marketing</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
@@ -72,7 +72,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-on-dark-muted max-w-xl mb-8 leading-relaxed"
             >
-              We craft data-driven campaigns that turn overlooked brands into market leaders. SEO, paid ads, social — all built to deliver ROI you can measure.
+              East Africa's top agency turning clicks into loyal customers. Boost your ROI by up to 500% with SEO, PPC, social media, and custom strategies tailored for your business.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
