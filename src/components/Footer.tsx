@@ -13,11 +13,17 @@ const Footer = () => {
               <span className="font-heading font-bold text-lg">Dime Solutions</span>
             </div>
             <p className="text-on-dark-muted text-sm leading-relaxed mb-6">
-              Turning clicks into customers. We help businesses across East Africa scale their digital presence with data-driven marketing strategies.
+              Turning clicks into customers. We help businesses across East Africa scale their digital presence with data-driven marketing strategies. Founded by Ken Kaibe.
             </p>
             <div className="flex gap-3">
-              {[Instagram, Linkedin, Facebook, Twitter, Youtube].map((Icon, i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-lg bg-[hsl(var(--navy-light)/0.4)] flex items-center justify-center text-on-dark-muted hover:text-cyan hover:bg-[hsl(var(--navy-light)/0.7)] transition-colors">
+              {[
+                { Icon: Instagram, url: "https://instagram.com/dimesolutionske" },
+                { Icon: Linkedin, url: "https://linkedin.com/company/dimesolutions" },
+                { Icon: Facebook, url: "https://facebook.com/dimesolutionske" },
+                { Icon: Twitter, url: "https://x.com/dimesolutionske" },
+                { Icon: Youtube, url: "https://youtube.com/@dimesolutions" },
+              ].map(({ Icon, url }, i) => (
+                <a key={i} href={url} className="w-9 h-9 rounded-lg bg-[hsl(var(--navy-light)/0.4)] flex items-center justify-center text-on-dark-muted hover:text-cyan hover:bg-[hsl(var(--navy-light)/0.7)] transition-colors" target="_blank" rel="noopener noreferrer">
                   <Icon className="w-4 h-4" />
                 </a>
               ))}
@@ -57,14 +63,14 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-on-dark-muted">
               <li className="flex gap-2"><MapPin className="w-4 h-4 text-cyan flex-shrink-0 mt-0.5" /> Mombasa, Kenya</li>
               <li className="flex gap-2"><MapPin className="w-4 h-4 text-cyan flex-shrink-0 mt-0.5" /> Nairobi, Kenya</li>
-              <li className="flex gap-2"><Phone className="w-4 h-4 text-cyan flex-shrink-0" /> +254 700 000 000</li>
-              <li className="flex gap-2"><Mail className="w-4 h-4 text-cyan flex-shrink-0" /> hello@dimesolutions.co.ke</li>
+              <li className="flex gap-2"><Phone className="w-4 h-4 text-cyan flex-shrink-0" /> +254 740-413-951</li>
+              <li className="flex gap-2"><Mail className="w-4 h-4 text-cyan flex-shrink-0" /> support@dime-solutions.co.ke</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-[hsl(var(--navy-light)/0.3)] flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-on-dark-muted">
-          <p>© 2025 Dime Solutions. All rights reserved.</p>
+          <p>© 2026 Dime Solutions. All rights reserved.</p>
           <p>Digital Marketing That Delivers ROI</p>
         </div>
       </div>
