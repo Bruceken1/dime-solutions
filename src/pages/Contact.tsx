@@ -5,15 +5,38 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: "Message sent!", description: "We'll get back to you within 24 hours." });
-    setForm({ name: "", email: "", phone: "", message: "" });
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.from("contact_submissions").insert({
+        name: form.name,
+        email: form.email,
+        phone: form.phone || null,
+        message: form.message,
+      });
+      if (error) throw error;
+
+      // Trigger notification
+      await supabase.functions.invoke("notify-submission", {
+        body: { type: "contact", data: form },
+      });
+
+      toast({ title: "Message sent!", description: "We'll get back to you within 24 hours." });
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,7 +61,9 @@ const Contact = () => {
                 </div>
                 <Input placeholder="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />
                 <Textarea placeholder="Tell us about your project..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required rows={5} className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />
-                <Button type="submit" size="lg" className="gradient-cyan text-accent-foreground font-semibold w-full sm:w-auto px-8 glow-cyan">Send Message</Button>
+                <Button type="submit" size="lg" disabled={loading} className="gradient-cyan text-accent-foreground font-semibold w-full sm:w-auto px-8 glow-cyan">
+                  {loading ? "Sending..." : "Send Message"}
+                </Button>
               </form>
             </div>
             <div className="lg:col-span-2 space-y-6">
