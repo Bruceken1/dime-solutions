@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const services = [
   { name: "SEO", path: "/services/seo" },
@@ -30,6 +31,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -86,11 +88,17 @@ const Navbar = () => {
               Free Audit
             </Button>
           </Link>
-          <Link to="/contact">
-            <Button size="sm" className="gradient-cyan text-accent-foreground font-medium hover:opacity-90">
-              Get Started
+          {user ? (
+            <Button size="sm" variant="outline" onClick={signOut} className="border-[hsl(var(--navy-light)/0.5)] text-on-dark-muted hover:text-on-dark font-medium">
+              <LogOut className="w-4 h-4 mr-1" /> Sign Out
             </Button>
-          </Link>
+          ) : (
+            <Link to="/auth">
+              <Button size="sm" className="gradient-cyan text-accent-foreground font-medium hover:opacity-90">
+                <LogIn className="w-4 h-4 mr-1" /> Sign In
+              </Button>
+            </Link>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -141,9 +149,17 @@ const Navbar = () => {
                 <Link to="/free-audit">
                   <Button variant="outline" className="w-full border-cyan text-cyan">Free Audit</Button>
                 </Link>
-                <Link to="/contact">
-                  <Button className="w-full gradient-cyan text-accent-foreground">Get Started</Button>
-                </Link>
+                {user ? (
+                  <Button onClick={signOut} variant="outline" className="w-full border-[hsl(var(--navy-light)/0.5)] text-on-dark-muted">
+                    <LogOut className="w-4 h-4 mr-1" /> Sign Out
+                  </Button>
+                ) : (
+                  <Link to="/auth">
+                    <Button className="w-full gradient-cyan text-accent-foreground">
+                      <LogIn className="w-4 h-4 mr-1" /> Sign In
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           </motion.div>

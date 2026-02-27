@@ -2,19 +2,40 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const FreeAudit = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", website: "", phone: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: "Audit requested!", description: "Our team will analyze your website and get back to you within 48 hours." });
-    setForm({ name: "", email: "", website: "", phone: "" });
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.from("audit_requests").insert({
+        name: form.name,
+        email: form.email,
+        website: form.website,
+        phone: form.phone || null,
+      });
+      if (error) throw error;
+
+      await supabase.functions.invoke("notify-submission", {
+        body: { type: "audit", data: form },
+      });
+
+      toast({ title: "Audit requested!", description: "Our team will analyze your website and get back to you within 48 hours." });
+      setForm({ name: "", email: "", website: "", phone: "" });
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -40,7 +61,9 @@ const FreeAudit = () => {
                 <Input type="email" placeholder="Email Address" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />
                 <Input placeholder="Website URL" value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })} required className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />
                 <Input placeholder="Phone (optional)" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />
-                <Button type="submit" size="lg" className="w-full gradient-cyan text-accent-foreground font-semibold glow-cyan">Get Free Audit <ArrowRight className="ml-2 w-4 h-4" /></Button>
+                <Button type="submit" size="lg" disabled={loading} className="w-full gradient-cyan text-accent-foreground font-semibold glow-cyan">
+                  {loading ? "Submitting..." : "Get Free Audit"} {!loading && <ArrowRight className="ml-2 w-4 h-4" />}
+                </Button>
                 <p className="text-xs text-on-dark-muted text-center">No spam. We respect your privacy.</p>
               </form>
             </motion.div>

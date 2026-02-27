@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Briefcase, MapPin, Clock } from "lucide-react";
+import { MapPin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import SectionHeading from "@/components/SectionHeading";
 
 const positions = [
@@ -18,11 +19,32 @@ const positions = [
 const Careers = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", position: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: "Application submitted!", description: "We'll review your application and get back to you soon." });
-    setForm({ name: "", email: "", position: "", message: "" });
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.from("career_applications").insert({
+        name: form.name,
+        email: form.email,
+        position: form.position || null,
+        message: form.message || null,
+      });
+      if (error) throw error;
+
+      await supabase.functions.invoke("notify-submission", {
+        body: { type: "career", data: form },
+      });
+
+      toast({ title: "Application submitted!", description: "We'll review your application and get back to you soon." });
+      setForm({ name: "", email: "", position: "", message: "" });
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -59,7 +81,9 @@ const Careers = () => {
             <Input type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />
             <Input placeholder="Position you're applying for" value={form.position} onChange={(e) => setForm({ ...form, position: e.target.value })} className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />
             <Textarea placeholder="Tell us about yourself..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} rows={4} className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />
-            <Button type="submit" className="gradient-cyan text-accent-foreground font-semibold w-full glow-cyan">Submit Application</Button>
+            <Button type="submit" disabled={loading} className="gradient-cyan text-accent-foreground font-semibold w-full glow-cyan">
+              {loading ? "Submitting..." : "Submit Application"}
+            </Button>
           </form>
         </div>
       </section>
