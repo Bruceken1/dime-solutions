@@ -19,9 +19,9 @@ const team = [
   { name: "Ken Kaibe", role: "CEO & Founder", img: team1 },
   { name: "Amina Hassan", role: "Head of Strategy", img: team2 },
   { name: "Brian Otieno", role: "Creative Director", img: team3 },
-  { name: "Grace Njeri", role: "SEO Lead", img: team2 },
+  { name: "Grace Kirwa", role: "SEO Lead", img: team2 },
   { name: "Kevin Ouma", role: "PPC Specialist", img: team1 },
-  { name: "Faith Wambui", role: "Social Media Manager", img: team3 },
+  { name: "Faith Kerubo", role: "Social Media Manager", img: team3 },
 ];
 
 const About = () => (
