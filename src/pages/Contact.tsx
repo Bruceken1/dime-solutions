@@ -70,8 +70,8 @@ const Contact = () => {
               {[
                 { icon: MapPin, label: "Mombasa Office", value: "Nyali Business Center, Mombasa" },
                 { icon: MapPin, label: "Nairobi Office", value: "Westlands, The Oval Building" },
-                { icon: Phone, label: "Phone", value: "+254 700 000 000" },
-                { icon: Mail, label: "Email", value: "hello@dimesolutions.co.ke" },
+                { icon: Phone, label: "Phone", value: "+254 740 413 951" },
+                { icon: Mail, label: "Email", value: "support@dimesolutions.co.ke" },
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-lg gradient-cyan flex items-center justify-center flex-shrink-0"><item.icon className="w-5 h-5 text-accent-foreground" /></div>
