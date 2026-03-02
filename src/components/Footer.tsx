@@ -17,7 +17,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-3">
               {[
-                { Icon: Instagram, url: "https://www.instagram.com/african_affleck/" },
+                { Icon: Instagram, url: "https://www.instagram.com/dime_solutions/" },
                 { Icon: Linkedin, url: "https://www.linkedin.com/company/dime-marketing-solutions-ltd" },
                 { Icon: Facebook, url: "https://web.facebook.com/people/Dime-Solutions-LTD/61587798872622/" },
                 { Icon: Twitter, url: "https://x.com/dimesolutionske" },
