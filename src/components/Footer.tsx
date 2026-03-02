@@ -17,11 +17,10 @@ const Footer = () => {
             </p>
             <div className="flex gap-3">
               {[
-                { Icon: Instagram, url: "https://instagram.com/dimesolutionske" },
-                { Icon: Linkedin, url: "https://linkedin.com/company/dimesolutions" },
-                { Icon: Facebook, url: "https://facebook.com/dimesolutionske" },
+                { Icon: Instagram, url: "https://www.instagram.com/african_affleck/" },
+                { Icon: Linkedin, url: "https://www.linkedin.com/company/dime-marketing-solutions-ltd" },
+                { Icon: Facebook, url: "https://web.facebook.com/people/Dime-Solutions-LTD/61587798872622/" },
                 { Icon: Twitter, url: "https://x.com/dimesolutionske" },
-                { Icon: Youtube, url: "https://youtube.com/@dimesolutions" },
               ].map(({ Icon, url }, i) => (
                 <a key={i} href={url} className="w-9 h-9 rounded-lg bg-[hsl(var(--navy-light)/0.4)] flex items-center justify-center text-on-dark-muted hover:text-cyan hover:bg-[hsl(var(--navy-light)/0.7)] transition-colors" target="_blank" rel="noopener noreferrer">
                   <Icon className="w-4 h-4" />
