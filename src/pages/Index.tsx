@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Target, Share2, PenTool, Mail, Globe, BarChart3, Video, TrendingUp, Users, Award, Zap } from "lucide-react";
+import { Helmet } from 'react-helmet';
 import SectionHeading from "@/components/SectionHeading";
 import heroBg from "@/assets/hero-bg.jpg";
 import portfolio1 from "@/assets/portfolio-1.jpg";
@@ -12,14 +13,14 @@ import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
 
 const services = [
-  { icon: Search, title: "SEO", desc: "Dominate search results and drive organic traffic that converts." },
-  { icon: Target, title: "Google Ads & PPC", desc: "High-performance paid campaigns with measurable ROI." },
-  { icon: Share2, title: "Social Media", desc: "Build engaged communities across all platforms." },
-  { icon: PenTool, title: "Content Marketing", desc: "Compelling content that educates, engages, and converts." },
-  { icon: Mail, title: "Email Marketing", desc: "Automated email flows that nurture leads into customers." },
-  { icon: Globe, title: "Web Design & Dev", desc: "Stunning, high-converting websites and landing pages." },
-  { icon: BarChart3, title: "Analytics & CRO", desc: "Data-driven optimization to maximize your conversions." },
-  { icon: Video, title: "Video & YouTube", desc: "Professional video content that tells your brand story." },
+  { icon: Search, title: "SEO", desc: "Dominate search results and drive organic traffic that converts. Our SEO services in Kenya include keyword research, on-page optimization, and backlink building tailored for East African businesses." },
+  { icon: Target, title: "Google Ads & PPC", desc: "High-performance paid campaigns with measurable ROI. We specialize in PPC advertising in Nairobi and Mombasa, optimizing for local search intent to maximize your ad spend." },
+  { icon: Share2, title: "Social Media", desc: "Build engaged communities across all platforms. From Facebook to TikTok, our social media marketing strategies help Kenyan brands connect with audiences and drive conversions." },
+  { icon: PenTool, title: "Content Marketing", desc: "Compelling content that educates, engages, and converts. We create blog posts, videos, and infographics optimized for digital marketing in East Africa." },
+  { icon: Mail, title: "Email Marketing", desc: "Automated email flows that nurture leads into customers. Our email campaigns are designed for high open rates and conversions in the Kenyan market." },
+  { icon: Globe, title: "Web Design & Dev", desc: "Stunning, high-converting websites and landing pages. We build responsive sites optimized for SEO and user experience in Kenya." },
+  { icon: BarChart3, title: "Analytics & CRO", desc: "Data-driven optimization to maximize your conversions. Using tools like Google Analytics, we improve your site's performance for better ROI." },
+  { icon: Video, title: "Video & YouTube", desc: "Professional video content that tells your brand story. We handle YouTube SEO and video production for East African businesses." },
 ];
 
 const stats = [
@@ -44,10 +45,23 @@ const testimonials = [
 const Index = () => {
   return (
     <div className="overflow-hidden">
+      <Helmet>
+        <title>Digital Marketing Agency Kenya | SEO & PPC | Dime Solutions</title>
+        <meta name="description" content="Boost business growth with data-driven digital marketing in East Africa, including SEO services in Mombasa, PPC in Nairobi, and social media strategies." />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Home - Dime Solutions",
+            "description": "Leading digital marketing agency in Kenya offering SEO, PPC, and more for business growth.",
+            "url": "https://dime-solutions.co.ke/"
+          })}
+        </script>
+      </Helmet>
       {/* Hero */}
       <section className="relative min-h-screen flex items-center hero-gradient">
         <div className="absolute inset-0 z-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <img src={heroBg} alt="Digital marketing growth in Kenya background" className="w-full h-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-b from-[hsl(213,80%,5%)] via-transparent to-[hsl(213,80%,5%)]" />
         </div>
         <div className="container-wide relative z-10 px-4 sm:px-6 lg:px-8 pt-24 pb-16">
@@ -72,7 +86,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-on-dark-muted max-w-xl mb-8 leading-relaxed"
             >
-              East Africa's top agency turning clicks into loyal customers. Boost your ROI by up to 500% with SEO, PPC, social media, and custom strategies tailored for your business.
+              East Africa's top agency turning clicks into loyal customers. Boost your ROI by up to 500% with SEO, PPC, social media, and custom strategies tailored for your business. As a leading digital marketing agency in Mombasa and Nairobi, we help SMEs and enterprises navigate the competitive online landscape in Kenya and East Africa. Our approaches include local SEO optimization, targeted PPC campaigns, and engaging social media content to drive measurable results like increased traffic, leads, and sales.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -110,7 +124,7 @@ const Index = () => {
       {/* Services Grid */}
       <section className="section-dark section-padding">
         <div className="container-wide">
-          <SectionHeading label="What We Do" title="Services That Drive Growth" description="End-to-end digital marketing solutions tailored for the East African market." light />
+          <SectionHeading label="What We Do" title="Services That Drive Growth" description="End-to-end digital marketing solutions tailored for the East African market. Our services help businesses in Kenya achieve sustainable online growth through proven strategies." light />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, i) => (
               <motion.div
@@ -130,13 +144,14 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+          <p className="mt-8 text-on-dark-muted">In the competitive digital landscape of Kenya, our services ensure your business stands out. Whether you're in Mombasa seeking local SEO or in Nairobi needing PPC expertise, we deliver results with a focus on ROI and long-term growth. Contact us for a customized digital marketing plan.</p>
         </div>
       </section>
 
       {/* Stats */}
       <section className="section-navy section-padding">
         <div className="container-wide">
-          <SectionHeading label="Results That Matter" title="Why Choose Dime Solutions?" description="We don't just promise results — we deliver them. Here's our track record." light />
+          <SectionHeading label="Results That Matter" title="Why Choose Dime Solutions?" description="We don't just promise results — we deliver them. Here's our track record in digital marketing for Kenyan businesses." light />
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
               <motion.div
@@ -152,13 +167,14 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+          <p className="mt-8 text-on-dark-muted text-center">These stats reflect our commitment to excellence in digital marketing across East Africa, helping over 200 clients achieve exceptional growth through targeted SEO, PPC, and social strategies.</p>
         </div>
       </section>
 
       {/* Portfolio */}
       <section className="section-dark section-padding">
         <div className="container-wide">
-          <SectionHeading label="Our Work" title="Featured Projects" description="Real results for real businesses. See how we've helped brands grow." light />
+          <SectionHeading label="Our Work" title="Featured Projects" description="Real results for real businesses. See how we've helped brands grow with our digital marketing services in Kenya." light />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {portfolioItems.map((item, i) => (
               <motion.div
@@ -170,7 +186,7 @@ const Index = () => {
               >
                 <Link to="/portfolio" className="group block rounded-2xl overflow-hidden card-hover">
                   <div className="relative aspect-[4/3] overflow-hidden">
-                    <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <img src={item.img} alt={`${item.title} portfolio example in Kenya`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,80%,5%)] to-transparent opacity-80" />
                     <div className="absolute bottom-4 left-4 right-4">
                       <span className="text-cyan text-xs font-semibold uppercase tracking-wider">{item.category}</span>
@@ -189,6 +205,7 @@ const Index = () => {
               </Button>
             </Link>
           </div>
+          <p className="mt-8 text-on-dark-muted">Our portfolio showcases successful digital marketing campaigns in Mombasa, Nairobi, and beyond, demonstrating our expertise in driving traffic and sales for diverse industries.</p>
         </div>
       </section>
 
@@ -208,7 +225,7 @@ const Index = () => {
               >
                 <p className="text-on-dark-muted text-sm leading-relaxed mb-6">"{t.text}"</p>
                 <div className="flex items-center gap-3">
-                  <img src={t.img} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <img src={t.img} alt={`${t.name} testimonial photo`} className="w-10 h-10 rounded-full object-cover" />
                   <div>
                     <p className="font-heading font-semibold text-sm text-on-dark">{t.name}</p>
                     <p className="text-xs text-on-dark-muted">{t.role}</p>
@@ -217,6 +234,7 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+          <p className="mt-8 text-on-dark-muted text-center">Hear from satisfied clients across Kenya who have benefited from our comprehensive digital marketing solutions.</p>
         </div>
       </section>
 
@@ -224,26 +242,17 @@ const Index = () => {
       <section className="relative section-padding overflow-hidden">
         <div className="absolute inset-0 hero-gradient" />
         <div className="absolute inset-0 z-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-15" />
+          <img src={heroBg} alt="Call to action background for digital marketing in Kenya" className="w-full h-full object-cover opacity-15" />
         </div>
         <div className="container-wide relative z-10 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl md:text-5xl font-bold text-on-dark mb-4">Ready to Scale Your Business?</h2>
-            <p className="text-on-dark-muted text-lg max-w-xl mx-auto mb-8">
-              Get a free marketing audit and discover opportunities to 10x your growth.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/free-audit">
-                <Button size="lg" className="gradient-cyan text-accent-foreground font-semibold px-8 glow-cyan">
-                  Get Free Audit <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button variant="outline" size="lg" className="border-[hsl(var(--navy-light))] text-on-dark hover:bg-[hsl(var(--navy-light)/0.3)] font-semibold px-8">
-                  Contact Us
-                </Button>
-              </Link>
-            </div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-on-dark mb-4">Ready to Transform Your Business?</h2>
+            <p className="text-on-dark-muted mb-8 max-w-2xl mx-auto">Get a free digital marketing audit and discover how we can help your Kenyan business achieve 500% ROI. Contact our team in Mombasa or Nairobi today.</p>
+            <Link to="/free-audit">
+              <Button size="lg" className="gradient-cyan text-accent-foreground font-semibold text-base px-8 hover:opacity-90 glow-cyan">
+                Claim Free Audit <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>
