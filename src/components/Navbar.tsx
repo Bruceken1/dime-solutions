@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import logo from "@/assets/logo.png";
 
 const services = [
   { name: "SEO", path: "/services/seo" },
@@ -48,7 +49,7 @@ const Navbar = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "nav-dark shadow-lg" : "bg-transparent"}`}>
       <div className="container-wide flex items-center justify-between h-16 md:h-20 px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg gradient-cyan flex items-center justify-center font-heading font-black text-accent-foreground text-sm">D</div>
+          <img src={logo} alt="Dime Solutions" className="h-8 w-auto" />
           <span className="font-heading font-bold text-lg text-on-dark">Dime Solutions</span>
         </Link>
 
