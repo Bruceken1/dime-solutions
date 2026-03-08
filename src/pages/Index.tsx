@@ -11,6 +11,21 @@ import portfolio3 from "@/assets/portfolio-3.jpg";
 import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
+import brandSafaricom from "@/assets/brand-safaricom.png";
+import brandKcb from "@/assets/brand-kcb.png";
+import brandJumia from "@/assets/brand-jumia.png";
+import brandTwiga from "@/assets/brand-twiga.png";
+import brandMpesa from "@/assets/brand-mpesa.png";
+import brandNcba from "@/assets/brand-ncba.png";
+
+const brandLogos = [
+  { name: "Safaricom", img: brandSafaricom },
+  { name: "KCB Bank", img: brandKcb },
+  { name: "Jumia", img: brandJumia },
+  { name: "Twiga Foods", img: brandTwiga },
+  { name: "M-Pesa", img: brandMpesa },
+  { name: "NCBA", img: brandNcba },
+];
 
 const services = [
   { icon: Search, title: "SEO", desc: "Dominate search results and drive organic traffic that converts. Our SEO services in Kenya include keyword research, on-page optimization, and backlink building tailored for East African businesses." },
