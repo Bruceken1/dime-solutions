@@ -11,6 +11,21 @@ import portfolio3 from "@/assets/portfolio-3.jpg";
 import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
 import team3 from "@/assets/team-3.jpg";
+import brandSafaricom from "@/assets/brand-safaricom.png";
+import brandKcb from "@/assets/brand-kcb.png";
+import brandJumia from "@/assets/brand-jumia.png";
+import brandTwiga from "@/assets/brand-twiga.png";
+import brandMpesa from "@/assets/brand-mpesa.png";
+import brandNcba from "@/assets/brand-ncba.png";
+
+const brandLogos = [
+  { name: "Safaricom", img: brandSafaricom },
+  { name: "KCB Bank", img: brandKcb },
+  { name: "Jumia", img: brandJumia },
+  { name: "Twiga Foods", img: brandTwiga },
+  { name: "M-Pesa", img: brandMpesa },
+  { name: "NCBA", img: brandNcba },
+];
 
 const services = [
   { icon: Search, title: "SEO", desc: "Dominate search results and drive organic traffic that converts. Our SEO services in Kenya include keyword research, on-page optimization, and backlink building tailored for East African businesses." },
@@ -113,9 +128,9 @@ const Index = () => {
       <section className="section-dark py-12 border-y border-[hsl(var(--navy-light)/0.2)]">
         <div className="container-wide px-4 sm:px-6 lg:px-8">
           <p className="text-center text-on-dark-muted text-sm mb-6 tracking-widest uppercase">Trusted by Leading Brands</p>
-          <div className="flex justify-center items-center gap-8 md:gap-16 flex-wrap opacity-50">
-            {["Safaricom", "KCB Bank", "Jumia", "Twiga Foods", "M-Pesa", "NCBA"].map((brand) => (
-              <span key={brand} className="font-heading font-bold text-on-dark text-lg md:text-xl">{brand}</span>
+          <div className="flex justify-center items-center gap-8 md:gap-16 flex-wrap">
+            {brandLogos.map((brand) => (
+              <img key={brand.name} src={brand.img} alt={`${brand.name} logo`} className="h-10 md:h-14 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
             ))}
           </div>
         </div>
