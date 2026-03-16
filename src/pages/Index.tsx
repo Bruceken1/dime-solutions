@@ -128,10 +128,12 @@ const Index = () => {
       <section className="section-dark py-12 border-y border-[hsl(var(--navy-light)/0.2)]">
         <div className="container-wide px-4 sm:px-6 lg:px-8">
           <p className="text-center text-on-dark-muted text-sm mb-6 tracking-widest uppercase">Trusted by Leading Brands</p>
-          <div className="flex justify-center items-center gap-8 md:gap-16 flex-wrap">
-            {brandLogos.map((brand) => (
-              <img key={brand.name} src={brand.img} alt={`${brand.name} logo`} className="h-10 md:h-14 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
-            ))}
+          <div className="overflow-hidden">
+            <div className="flex items-center gap-12 md:gap-20 animate-marquee w-max">
+              {[...brandLogos, ...brandLogos].map((brand, i) => (
+                <img key={`${brand.name}-${i}`} src={brand.img} alt={`${brand.name} logo`} className="h-10 md:h-14 w-auto object-contain flex-shrink-0" />
+              ))}
+            </div>
           </div>
         </div>
       </section>
