@@ -133,6 +133,7 @@ const Index = () => {
               {[...brandLogos, ...brandLogos].map((brand, i) => (
                 <img key={`${brand.name}-${i}`} src={brand.img} alt={`${brand.name} logo`} className="h-10 md:h-14 w-auto object-contain flex-shrink-0" />
               ))}
+            </div>
           </div>
         </div>
       </section>
