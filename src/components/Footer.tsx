@@ -13,7 +13,7 @@ const Footer = () => {
               <span className="font-heading font-bold text-lg">Dime Solutions</span>
             </div>
             <p className="text-on-dark-muted text-sm leading-relaxed mb-6">
-              Turning clicks into customers. We help businesses across East Africa scale their digital presence with data-driven marketing strategies. Founded by Ken Kaibe.
+              Turning clicks into customers. We help businesses across East Africa scale their digital presence with data-driven marketing strategies.
             </p>
             <div className="flex gap-3">
               {[
