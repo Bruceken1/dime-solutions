@@ -1,88 +1,103 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+// supabase/functions/notify-submission/index.ts
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { Resend } from "https://esm.sh/resend@2.0.0"
+
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"))
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
-};
-
-const BUSINESS_EMAIL = "support@dimesolutions.co.ke";
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+}
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+  // Handle CORS preflight
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders })
   }
 
   try {
-    const { type, data } = await req.json();
+    const { type, data } = await req.json()
 
-    console.log(`New ${type} submission received:`, JSON.stringify(data));
-
-    // Build email content based on submission type
-    let subject = "";
-    let body = "";
-
-    switch (type) {
-      case "contact":
-        subject = `New Contact Form Submission from ${data.name}`;
-        body = `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || "N/A"}\n\nMessage:\n${data.message}`;
-        break;
-      case "audit":
-        subject = `New Free Audit Request from ${data.name}`;
-        body = `Name: ${data.name}\nEmail: ${data.email}\nWebsite: ${data.website}\nPhone: ${data.phone || "N/A"}`;
-        break;
-      case "career":
-        subject = `New Career Application from ${data.name}`;
-        body = `Name: ${data.name}\nEmail: ${data.email}\nPosition: ${data.position || "Not specified"}\n\nMessage:\n${data.message || "No message"}`;
-        break;
-      default:
-        subject = `New ${type} Submission`;
-        body = JSON.stringify(data, null, 2);
+    if (!type || !data) {
+      throw new Error("Missing type or data")
     }
 
-    // Try sending via Resend if API key is available
-    const resendApiKey = Deno.env.get("RESEND_API_KEY");
-    
-    if (resendApiKey) {
-      const emailRes = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${resendApiKey}`,
-        },
-        body: JSON.stringify({
-          from: "Dime Solutions <notifications@dimesolutions.co.ke>",
-          to: [BUSINESS_EMAIL],
-          subject,
-          text: body,
-          reply_to: data.email,
-        }),
-      });
+    let subject = ""
+    let html = ""
+    let text = ""
 
-      if (!emailRes.ok) {
-        const errText = await emailRes.text();
-        console.error("Resend error:", errText);
-      } else {
-        console.log("Email sent successfully via Resend");
+    const businessEmail = "support@dimesolutions.co.ke"
+
+    if (type === "contact") {
+      subject = `New Contact Form Submission from ${data.name}`
+      html = `
+        <h2>New Contact Message</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
+        <p><strong>Message:</strong><br>${data.message}</p>
+      `
+      text = `New Contact Message\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || "Not provided"}\nMessage: ${data.message}`
+    } 
+    else if (type === "audit") {
+      subject = `New Audit Request from ${data.name}`
+      html = `
+        <h2>New Audit Request</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Company:</strong> ${data.company || "Not provided"}</p>
+        <p><strong>Service Needed:</strong> ${data.service}</p>
+        <p><strong>Details:</strong><br>${data.details}</p>
+      `
+      text = `New Audit Request\nName: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || "Not provided"}\nService: ${data.service}\nDetails: ${data.details}`
+    } 
+    else if (type === "career") {
+      subject = `New Career Application from ${data.name}`
+      html = `
+        <h2>New Career Application</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone}</p>
+        <p><strong>Position:</strong> ${data.position}</p>
+        <p><strong>Experience:</strong> ${data.experience} years</p>
+        <p><strong>Message/Cover Letter:</strong><br>${data.message}</p>
+      `
+      text = `New Career Application\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nPosition: ${data.position}\nExperience: ${data.experience} years\nMessage: ${data.message}`
+    } 
+    else {
+      throw new Error("Invalid submission type")
+    }
+
+    const { data: emailData, error } = await resend.emails.send({
+      from: "Dime Solutions <notifications@dimesolutions.co.ke>",   // Change after verifying domain in Resend
+      to: [businessEmail],
+      reply_to: data.email,
+      subject: subject,
+      html: html,
+      text: text,
+    })
+
+    if (error) {
+      console.error("Resend error:", error)
+      throw error
+    }
+
+    return new Response(
+      JSON.stringify({ success: true, message: "Email sent successfully" }),
+      { 
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200 
       }
-    } else {
-      console.log("RESEND_API_KEY not set — email not sent. Submission logged.");
-      console.log(`To: ${BUSINESS_EMAIL}\nSubject: ${subject}\n\n${body}`);
-    }
+    )
 
+  } catch (error: any) {
+    console.error("Function error:", error)
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: `${type} notification processed`,
-        emailSent: !!resendApiKey,
-      }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    console.error("Error processing notification:", errorMessage);
-    return new Response(
-      JSON.stringify({ success: false, error: errorMessage }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+      JSON.stringify({ success: false, error: error.message }),
+      { 
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 400 
+      }
+    )
   }
-});
+})
