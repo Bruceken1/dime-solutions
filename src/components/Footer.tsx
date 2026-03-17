@@ -63,7 +63,7 @@ const Footer = () => {
               <li className="flex gap-2"><MapPin className="w-4 h-4 text-cyan flex-shrink-0 mt-0.5" /> Mombasa, Kenya</li>
               <li className="flex gap-2"><MapPin className="w-4 h-4 text-cyan flex-shrink-0 mt-0.5" /> Nairobi, Kenya</li>
               <li className="flex gap-2"><Phone className="w-4 h-4 text-cyan flex-shrink-0" /> +254 740-413-951</li>
-              <li className="flex gap-2"><Mail className="w-4 h-4 text-cyan flex-shrink-0" /> support@dime-solutions.co.ke</li>
+              <li className="flex gap-2"><Mail className="w-4 h-4 text-cyan flex-shrink-0" /> info@dime-solutions.co.ke</li>
             </ul>
           </div>
         </div>
