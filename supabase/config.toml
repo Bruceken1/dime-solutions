@@ -1,6 +1,6 @@
 # supabase/config.toml
 
-project_id = "https://gmydspqzvqfndpptbkuj.supabase.co"   # ← Replace with your actual Supabase project ID (from dashboard URL)
+project_id = "gmydspqzvqfndpptbkuj"   # ← Replace with your actual Supabase project ID (from dashboard URL)
 
 [functions]
 # No global settings needed
