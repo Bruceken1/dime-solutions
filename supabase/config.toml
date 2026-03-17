@@ -1,9 +1,4 @@
-# supabase/config.toml
-
-project_id = "gmydspqzvqfndpptbkuj"   # ← Replace with your actual Supabase project ID (from dashboard URL)
-
-[functions]
-# No global settings needed
+project_id = "gmydspqzvqfndpptbkuj"
 
 [functions.notify-submission]
 verify_jwt = false
