@@ -61,7 +61,7 @@ const Index = () => {
   return (
     <div className="overflow-hidden">
       <Helmet>
-        <title>Digital Marketing Agency Kenya | SEO & PPC | Dime Solutions</title>
+        <title>Digital Marketing Agency Mombasa | SEO & PPC | Dime Solutions</title>
         <meta name="description" content="Boost business growth with data-driven digital marketing in East Africa, including SEO services in Mombasa, PPC in Nairobi, and social media strategies." />
         <script type="application/ld+json">
           {JSON.stringify({
@@ -92,8 +92,8 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-on-dark leading-tight mb-6"
             >
-              Unlock Explosive Growth with{" "}
-              <span className="gradient-text">Data-Driven Marketing</span>
+              Digital Marketing Agency With a{" "}
+              <span className="gradient-text">Data-Driven Approach</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
