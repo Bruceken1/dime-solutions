@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Consolidated single CSP meta tag – covers Supabase, Google services, fonts, inline code -->
     <meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://static.cloudflareinsights.com https://www.google-analytics.com https://www.google.co.ke https://www.google.com;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  font-src 'self' https://fonts.gstatic.com;
-  img-src 'self' data: https://www.google.co.ke https://www.google.com;
-  connect-src 'self' 
-    https://gmydspqzvqfndpptbkuj.supabase.co 
-    https://*.supabase.co 
-    wss://gmydspqzvqfndpptbkuj.supabase.co 
-    https://analytics.google.com 
-    https://stats.g.doubleclick.net 
-    https://www.google-analytics.com 
-    https://pagead2.googlesyndication.com;
-">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://static.cloudflareinsights.com https://www.google-analytics.com https://www.google.co.ke; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://analytics.google.com;">
+      default-src 'self' data:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval'
+        https://www.googletagmanager.com
+        https://pagead2.googlesyndication.com
+        https://static.cloudflareinsights.com
+        https://www.google-analytics.com
+        https://www.google.co.ke
+        https://www.google.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com data:;
+      img-src 'self' data: https://www.google.co.ke https://www.google.com https://*.supabase.co;
+      connect-src 'self'
+        https://gmydspqzvqfndpptbkuj.supabase.co
+        https://*.supabase.co
+        wss://gmydspqzvqfndpptbkuj.supabase.co
+        wss://*.supabase.co
+        https://analytics.google.com
+        https://stats.g.doubleclick.net
+        https://www.google-analytics.com
+        https://pagead2.googlesyndication.com;
+      frame-src 'self' https://*.supabase.co;
+    ">
+
+    <!-- Google Adsense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906934601570197"
      crossorigin="anonymous"></script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E672RXD11K"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-E672RXD11K');
     </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Digital Marketing In Mombasa | Dime Solutions | #1 SEO & AI Agency Kenya</title>
@@ -122,18 +133,15 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" /> <!-- For PWA support -->
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Performance Optimizations -->
     <link rel="preload" href="/src/main.tsx" as="script" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" /> <!-- If using GA -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin /> <!-- If using Google Fonts; added crossorigin for better perf -->
-
-    <!-- Canonical URL -->
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="canonical" href="https://dime-solutions.co.ke/" />
 
-    <!-- Security/Privacy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';" /> <!-- Customize as needed -->
+    <!-- Security/Privacy (referrer only – CSP is already set above) -->
     <meta name="referrer" content="strict-origin-when-cross-origin" />
   </head>
   <body>
