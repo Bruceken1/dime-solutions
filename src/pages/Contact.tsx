@@ -1,51 +1,57 @@
-// contact.tsx
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabase";   // ← Fixed import path
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
-const Contact = () => {
+export default function Contact() {
   const { toast } = useToast();
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    subject: "",
     message: "",
+    phone: "",
   });
   const [loading, setLoading] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Call the Edge Function - this sends email via Resend
-      const { data, error } = await supabase.functions.invoke("notify-submission", {
-        body: { 
-          type: "contact", 
-          data: form 
-        },
+      const response = await fetch("/api/send-contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
-      if (error) throw error;
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Failed to send message");
+      }
 
       toast({
-        title: "Message sent! ✅",
-        description: "We'll get back to you within 24 hours.",
+        title: "Message sent",
+        description: "Thank you for contacting us. We'll get back to you soon.",
       });
 
-      // Reset form
-      setForm({ name: "", email: "", phone: "", message: "" });
-    } catch (error: any) {
-      console.error(error);
+      setFormData({ name: "", email: "", subject: "", message: "", phone: "" });
+    } catch (err: any) {
+      console.error("Contact form error:", err);
       toast({
-        title: "Error",
-        description: error.message || "Failed to send message. Please try again.",
         variant: "destructive",
+        title: "Error",
+        description: err.message || "Failed to send message. Please try again later.",
       });
     } finally {
       setLoading(false);
@@ -53,91 +59,61 @@ const Contact = () => {
   };
 
   return (
-    <div className="overflow-hidden">
-      <section className="hero-gradient pt-32 pb-16 section-padding">
-        <div className="container-wide">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            className="text-center max-w-2xl mx-auto"
-          >
-            <span className="text-cyan text-sm font-semibold tracking-widest uppercase mb-4 block">Contact Us</span>
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-on-dark mb-6">Let's Grow Together</h1>
-            <p className="text-on-dark-muted text-lg">Ready to take your digital marketing to the next level? Get in touch.</p>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="section-dark section-padding">
-        <div className="container-wide max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Input 
-                    placeholder="Full Name" 
-                    value={form.name} 
-                    onChange={(e) => setForm({ ...form, name: e.target.value })} 
-                    required 
-                    className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" 
-                  />
-                  <Input 
-                    type="email" 
-                    placeholder="Email Address" 
-                    value={form.email} 
-                    onChange={(e) => setForm({ ...form, email: e.target.value })} 
-                    required 
-                    className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" 
-                  />
-                </div>
-                <Input 
-                  placeholder="Phone Number" 
-                  value={form.phone} 
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })} 
-                  className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" 
-                />
-                <Textarea 
-                  placeholder="Tell us about your project..." 
-                  value={form.message} 
-                  onChange={(e) => setForm({ ...form, message: e.target.value })} 
-                  required 
-                  rows={5} 
-                  className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" 
-                />
-                <Button 
-                  type="submit" 
-                  size="lg" 
-                  disabled={loading} 
-                  className="gradient-cyan text-accent-foreground font-semibold w-full sm:w-auto px-8 glow-cyan"
-                >
-                  {loading ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
+    <div className="container mx-auto py-12">
+      <Card className="max-w-2xl mx-auto">
+        <CardHeader>
+          <CardTitle>Contact Us</CardTitle>
+          <CardDescription>
+            Fill out the form below and we'll get back to you as soon as possible.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input
+                placeholder="Your Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+              <Input
+                type="email"
+                placeholder="Your Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
             </div>
-
-            <div className="lg:col-span-2 space-y-6">
-              {[
-                { icon: MapPin, label: "Mombasa Office", value: "Nyali Business Center, Mombasa" },
-                { icon: MapPin, label: "Nairobi Office", value: "Westlands, The Oval Building" },
-                { icon: Phone, label: "Phone", value: "+254 740 413 951" },
-                { icon: Mail, label: "Email", value: "support@dimesolutions.co.ke" },
-              ].map((item) => (
-                <div key={item.label} className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg gradient-cyan flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-5 h-5 text-accent-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-heading font-semibold text-sm text-on-dark">{item.label}</p>
-                    <p className="text-sm text-on-dark-muted">{item.value}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+            <Input
+              type="tel"
+              placeholder="Phone (optional)"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            <Input
+              placeholder="Subject"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              required
+            />
+            <Textarea
+              placeholder="Your Message"
+              name="message"
+              rows={5}
+              value={formData.message}
+              onChange={handleChange}
+              required
+            />
+            <Button type="submit" disabled={loading} className="w-full">
+              {loading ? "Sending..." : "Send Message"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
-};
-
-export default Contact;
+}
