@@ -101,7 +101,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-on-dark-muted max-w-xl mb-8 leading-relaxed"
             >
-              East Africa's top agency turning clicks into loyal customers. Boost your ROI by up to 500% with SEO, PPC, social media, and custom strategies tailored for your business. As a leading digital marketing agency in Mombasa and Nairobi, we help SMEs and enterprises navigate the competitive online landscape in Kenya and East Africa. Our approaches include local SEO optimization, targeted PPC campaigns, and engaging social media content to drive measurable results like increased traffic, leads, and sales.
+              Kenya's top Marketing Agency turning clicks into loyal customers. Boost your Revenue by up to 500% with SEO, PPC, social media, and custom strategies tailored for your business. As a leading digital marketing agency in Mombasa and Nairobi, we help SMEs and enterprises navigate the competitive online landscape. Our approaches include local SEO optimization, targeted PPC campaigns, and engaging social media content to drive measurable results like increased traffic, leads, and sales.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
