@@ -15,8 +15,8 @@ app.post('/send-contact', async (req, res) => {
 
   try {
     await resend.emails.send({
-      from: 'Dime Solutions <onboarding@resend.dev>', // change to your verified domain
-      to: ['support@dime-solutions.co.ke'], // your email
+      from: 'Dime Solutions <support@dime-solutions.co.ke>', // change to your verified domain
+      to: ['ken.kaibe@dime-solutions.co.ke'], // your email
       subject: `New Contact: ${subject}`,
       html: `
         <h2>New message from ${name}</h2>
