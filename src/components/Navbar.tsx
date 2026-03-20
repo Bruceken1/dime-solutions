@@ -20,11 +20,8 @@ const services = [
 const RESUMAE = "https://resumable.dime-solutions.co.ke";
 
 const aiTools = [
-  { name: "Resumae — Resume Optimizer", path: RESUMAE, badge: "New" },
-  { name: "JD Tailoring", path: `${RESUMAE}/dashboard/tailoring` },
-  { name: "Resume Coach", path: `${RESUMAE}/dashboard/coach` },
-  { name: "Cover Letter Generator", path: `${RESUMAE}/dashboard/cover-letters` },
-  { name: "Chat Resume Builder", path: `${RESUMAE}/dashboard/chat` },
+  { name: "Resumae — AI Resume Optimizer", path: RESUMAE, badge: "New" },
+  { name: "SEO Auditor", path: "#", badge: "Coming Soon" },
 ];
 
 const navLinks = [
