@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import SectionHeading from "@/components/SectionHeading";
 
 const positions = [
@@ -24,24 +23,18 @@ const Careers = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
-      const { error } = await supabase.from("career_applications").insert({
-        name: form.name,
-        email: form.email,
-        position: form.position || null,
-        message: form.message || null,
+      const res = await fetch("/api/send-career", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
-      if (error) throw error;
-
-      await supabase.functions.invoke("notify-submission", {
-        body: { type: "career", data: form },
-      });
-
+      const result = await res.json();
+      if (!res.ok || !result.success) throw new Error(result.error || "Failed to submit application");
       toast({ title: "Application submitted!", description: "We'll review your application and get back to you soon." });
       setForm({ name: "", email: "", position: "", message: "" });
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message || "Failed to submit. Please try again.", variant: "destructive" });
     } finally {
       setLoading(false);
     }
