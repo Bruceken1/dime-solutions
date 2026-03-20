@@ -17,7 +17,9 @@ const contactInfo = [
 
 export default function Contact() {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "", email: "", phone: "", subject: "", message: "",
+  });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -56,6 +58,7 @@ export default function Contact() {
           </motion.div>
         </div>
       </section>
+
       <section className="section-dark section-padding">
         <div className="container-wide max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -75,6 +78,7 @@ export default function Contact() {
                 ))}
               </div>
             </motion.div>
+
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

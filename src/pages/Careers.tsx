@@ -51,6 +51,7 @@ const Careers = () => {
           </motion.div>
         </div>
       </section>
+
       <section className="section-dark section-padding">
         <div className="container-wide max-w-4xl">
           <SectionHeading label="Open Positions" title="Current Opportunities" light />
@@ -68,6 +69,7 @@ const Careers = () => {
               </div>
             ))}
           </div>
+
           <SectionHeading label="Apply" title="Send Your Application" light />
           <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto">
             <Input placeholder="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />

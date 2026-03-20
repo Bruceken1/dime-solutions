@@ -17,10 +17,21 @@ const services = [
   { name: "Video & YouTube", path: "/services/video" },
 ];
 
+const RESUMAE = "https://resumable.dime-solutions.co.ke";
+
+const aiTools = [
+  { name: "Resumae — Resume Optimizer", path: RESUMAE, badge: "New" },
+  { name: "JD Tailoring", path: `${RESUMAE}/dashboard/tailoring` },
+  { name: "Resume Coach", path: `${RESUMAE}/dashboard/coach` },
+  { name: "Cover Letter Generator", path: `${RESUMAE}/dashboard/cover-letters` },
+  { name: "Chat Resume Builder", path: `${RESUMAE}/dashboard/chat` },
+];
+
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Services", path: "/services", children: services },
+  { name: "AI Tools", path: "#", children: aiTools },
   { name: "Portfolio", path: "/portfolio" },
   { name: "Blog", path: "/blog" },
   { name: "Pricing", path: "/pricing" },
@@ -31,6 +42,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [aiToolsOpen, setAiToolsOpen] = useState(false);
   const location = useLocation();
   const { user, signOut } = useAuth();
 
@@ -43,6 +55,7 @@ const Navbar = () => {
   useEffect(() => {
     setMobileOpen(false);
     setServicesOpen(false);
+    setAiToolsOpen(false);
   }, [location]);
 
   return (
@@ -56,24 +69,52 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
             <div key={link.name} className="relative group">
-              <Link
-                to={link.path}
-                className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 rounded-md ${location.pathname === link.path ? "text-cyan" : "text-on-dark-muted hover:text-on-dark"}`}
-              >
-                {link.name}
-                {link.children && <ChevronDown className="w-3 h-3" />}
-              </Link>
+              {/* For AI Tools, use a button to prevent navigation to "#" */}
+              {link.name === "AI Tools" ? (
+                <button
+                  className="px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 rounded-md text-on-dark-muted hover:text-on-dark"
+                >
+                  {link.name}
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+              ) : (
+                <Link
+                  to={link.path}
+                  className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 rounded-md ${location.pathname === link.path ? "text-cyan" : "text-on-dark-muted hover:text-on-dark"}`}
+                >
+                  {link.name}
+                  {link.children && <ChevronDown className="w-3 h-3" />}
+                </Link>
+              )}
+
               {link.children && (
                 <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <div className="nav-dark rounded-xl p-2 min-w-[220px] shadow-2xl border border-[hsl(var(--border))]">
+                  <div className="nav-dark rounded-xl p-2 min-w-[240px] shadow-2xl border border-[hsl(var(--border))]">
                     {link.children.map((child) => (
-                      <Link
-                        key={child.path}
-                        to={child.path}
-                        className="block px-3 py-2 text-sm text-on-dark-muted hover:text-cyan hover:bg-[hsl(var(--navy-light)/0.3)] rounded-lg transition-colors"
-                      >
-                        {child.name}
-                      </Link>
+                      child.path.startsWith("http") ? (
+                        <a
+                          key={child.path}
+                          href={child.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between px-3 py-2 text-sm text-on-dark-muted hover:text-cyan hover:bg-[hsl(var(--navy-light)/0.3)] rounded-lg transition-colors"
+                        >
+                          <span>{child.name}</span>
+                          {child.badge && (
+                            <span className="text-[10px] font-bold gradient-cyan text-accent-foreground px-1.5 py-0.5 rounded-full ml-2 leading-none">
+                              {child.badge}
+                            </span>
+                          )}
+                        </a>
+                      ) : (
+                        <Link
+                          key={child.path}
+                          to={child.path}
+                          className="block px-3 py-2 text-sm text-on-dark-muted hover:text-cyan hover:bg-[hsl(var(--navy-light)/0.3)] rounded-lg transition-colors"
+                        >
+                          {child.name}
+                        </Link>
+                      )
                     ))}
                   </div>
                 </div>
@@ -122,18 +163,42 @@ const Navbar = () => {
                   {link.children ? (
                     <>
                       <button
-                        onClick={() => setServicesOpen(!servicesOpen)}
+                        onClick={() => {
+                          if (link.name === "Services") setServicesOpen(!servicesOpen);
+                          if (link.name === "AI Tools") setAiToolsOpen(!aiToolsOpen);
+                        }}
                         className="w-full flex items-center justify-between px-3 py-2 text-on-dark-muted hover:text-on-dark text-sm font-medium"
                       >
                         {link.name}
-                        <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                        <ChevronDown className={`w-4 h-4 transition-transform ${
+                          (link.name === "Services" && servicesOpen) ||
+                          (link.name === "AI Tools" && aiToolsOpen)
+                            ? "rotate-180" : ""
+                        }`} />
                       </button>
-                      {servicesOpen && (
+                      {((link.name === "Services" && servicesOpen) || (link.name === "AI Tools" && aiToolsOpen)) && (
                         <div className="pl-4 space-y-1">
                           {link.children.map((child) => (
-                            <Link key={child.path} to={child.path} className="block px-3 py-1.5 text-sm text-on-dark-muted hover:text-cyan">
-                              {child.name}
-                            </Link>
+                            child.path.startsWith("http") ? (
+                              <a
+                                key={child.path}
+                                href={child.path}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 px-3 py-1.5 text-sm text-on-dark-muted hover:text-cyan"
+                              >
+                                {child.name}
+                                {child.badge && (
+                                  <span className="text-[10px] font-bold gradient-cyan text-accent-foreground px-1.5 py-0.5 rounded-full leading-none">
+                                    {child.badge}
+                                  </span>
+                                )}
+                              </a>
+                            ) : (
+                              <Link key={child.path} to={child.path} className="block px-3 py-1.5 text-sm text-on-dark-muted hover:text-cyan">
+                                {child.name}
+                              </Link>
+                            )
                           ))}
                         </div>
                       )}

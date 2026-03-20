@@ -51,9 +51,11 @@ function esc(val) {
 app.post('/api/send-contact', rateLimit, async (req, res) => {
   console.log('📨 New contact form submission');
   const { name, email, phone, subject, message } = req.body;
+
   if (!name || !email || !subject || !message) {
     return res.status(400).json({ success: false, error: 'Missing required fields.' });
   }
+
   try {
     await resend.emails.send({
       from:    FROM,
@@ -83,9 +85,11 @@ app.post('/api/send-contact', rateLimit, async (req, res) => {
 app.post('/api/send-audit', rateLimit, async (req, res) => {
   console.log('📨 New audit request');
   const { companyName, contactName, email, phone, industry, auditNotes } = req.body;
+
   if (!contactName || !email) {
     return res.status(400).json({ success: false, error: 'Name and email are required.' });
   }
+
   try {
     await resend.emails.send({
       from:    FROM,
@@ -116,9 +120,11 @@ app.post('/api/send-audit', rateLimit, async (req, res) => {
 app.post('/api/send-career', rateLimit, async (req, res) => {
   console.log('📨 New career application');
   const { name, email, position, message } = req.body;
+
   if (!name || !email) {
     return res.status(400).json({ success: false, error: 'Name and email are required.' });
   }
+
   try {
     await resend.emails.send({
       from:    FROM,

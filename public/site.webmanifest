@@ -2,7 +2,7 @@
   "name": "Dime Solutions",
   "short_name": "Dime",
   "icons": [],
-  "theme_color": "#0b2342",
-  "background_color": "#0b2342",
+  "theme_color": "#007bff",
+  "background_color": "#ffffff",
   "display": "standalone"
 }

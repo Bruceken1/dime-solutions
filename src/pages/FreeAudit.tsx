@@ -17,7 +17,9 @@ const benefits = [
 
 export default function FreeAudit() {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({ companyName: "", contactName: "", email: "", phone: "", industry: "", auditNotes: "" });
+  const [formData, setFormData] = useState({
+    companyName: "", contactName: "", email: "", phone: "", industry: "", auditNotes: "",
+  });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -56,6 +58,7 @@ export default function FreeAudit() {
           </motion.div>
         </div>
       </section>
+
       <section className="section-dark section-padding">
         <div className="container-wide max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -69,8 +72,11 @@ export default function FreeAudit() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-8 text-on-dark-muted text-sm">Delivered within <strong className="text-on-dark">2–3 business days</strong>. No commitment required.</p>
+              <p className="mt-8 text-on-dark-muted text-sm">
+                Delivered within <strong className="text-on-dark">2–3 business days</strong>. No commitment required.
+              </p>
             </motion.div>
+
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <Input placeholder="Company Name" name="companyName" value={formData.companyName} onChange={handleChange} className="bg-[hsl(var(--navy)/0.5)] border-[hsl(var(--navy-light)/0.3)] text-on-dark placeholder:text-on-dark-muted" />

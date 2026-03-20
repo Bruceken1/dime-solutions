@@ -40,12 +40,13 @@ CREATE TRIGGER update_profiles_updated_at
   BEFORE UPDATE ON public.profiles
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
--- Contact submissions (public insert, admin read)
+-- Contact submissions — fields match Contact.tsx form exactly
 CREATE TABLE public.contact_submissions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   email TEXT NOT NULL,
   phone TEXT,
+  subject TEXT,
   message TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -53,20 +54,22 @@ ALTER TABLE public.contact_submissions ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Anyone can submit contact form" ON public.contact_submissions FOR INSERT WITH CHECK (true);
 CREATE POLICY "Authenticated users can view submissions" ON public.contact_submissions FOR SELECT USING (auth.uid() IS NOT NULL);
 
--- Audit requests (public insert, admin read)
+-- Audit requests — fields match FreeAudit.tsx form exactly
 CREATE TABLE public.audit_requests (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name TEXT NOT NULL,
+  company_name TEXT,
+  contact_name TEXT NOT NULL,
   email TEXT NOT NULL,
-  website TEXT NOT NULL,
   phone TEXT,
+  industry TEXT,
+  audit_notes TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 ALTER TABLE public.audit_requests ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Anyone can submit audit request" ON public.audit_requests FOR INSERT WITH CHECK (true);
 CREATE POLICY "Authenticated users can view audit requests" ON public.audit_requests FOR SELECT USING (auth.uid() IS NOT NULL);
 
--- Career applications (public insert, admin read)
+-- Career applications — fields match Careers.tsx form exactly
 CREATE TABLE public.career_applications (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
